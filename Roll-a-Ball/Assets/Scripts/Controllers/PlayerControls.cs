@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*This attritubte Guarantees a CharacterController component is attached to our player
+ and prevents the component from being removed from the player by any means*/
+[RequireComponent(typeof(CharacterController))] 
 public class PlayerControls : MonoBehaviour
 {
     #region Variables
-
     public float movementSpeed = 5f; // Variable to control how fast the player moves
     public float jumpForce = 10f; // The force with which the player jumps
     public float gravity = 20f; // The force of gravity affecting the player
@@ -20,7 +22,7 @@ public class PlayerControls : MonoBehaviour
         controller = GetComponent<CharacterController>(); // Get the CharacterController component attached to the player
     }
 
-    void FixedUpdate()
+    void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal"); // Stores the Horizontal (Left & Right) input of the player
         float verticalInput = Input.GetAxis("Vertical"); // Stores the Vertical (Forward & Backward) input of the player
@@ -44,5 +46,14 @@ public class PlayerControls : MonoBehaviour
         }
 
         controller.Move(moveDirection * Time.deltaTime); // Move the player with the characterController component
+
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        if (other.gameObject.CompareTag("Pickup"))
+        {
+            other.gameObject.SetActive(false);
+        }
     }
 }
