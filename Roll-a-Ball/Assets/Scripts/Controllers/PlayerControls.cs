@@ -54,6 +54,7 @@ public class PlayerControls : MonoBehaviour
         if (other.gameObject.CompareTag("Pickup"))
         {
             other.gameObject.SetActive(false);
+            
         }
     }
 }
