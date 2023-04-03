@@ -1,30 +1,37 @@
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-
-    public int score;
-
-    public static GameManager instance {get; private set;}
-
-        //set instance in this script's constructor
-        public GameManager()
-        {
-            instance = this;
-        }
+   public static int score;
+   public TextMeshProUGUI scoreText;
+   public GameObject victoryTextObject;
 
     void Start()
-    {
-        score = 0;    
-    }
+   {
+        score = 0;
+        UpdateUI();
+        victoryTextObject.SetActive(false);
+   }
 
-    public void EndGame()
-    {
-        Debug.Log("GAME OVER");
-    }
+   public void UpdateScore(int amount)
+   {
+        score += amount;
+        UpdateUI();
 
-    public void WinLevel()
-    {
-        Debug.Log("LEVEL COMPLETE");
-    }
+        if(score >= 10)
+        {
+          WinGame();
+        }
+   }
+
+   public void UpdateUI()
+   {
+     scoreText.text = score.ToString();
+   }
+
+   public void WinGame()
+   {
+        victoryTextObject.SetActive(true);
+   }
 }

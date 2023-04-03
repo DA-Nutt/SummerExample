@@ -53,7 +53,8 @@ public class PlayerControls : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Pickup"))
         {
-            other.gameObject.SetActive(false);
+            other.gameObject.SetActive(false); //Despawn the pickup we just collided with
+            FindObjectOfType<GameManager>().UpdateScore(1);
             
         }
     }
