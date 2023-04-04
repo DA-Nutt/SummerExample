@@ -1,11 +1,16 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-   public static int score;
-   public TextMeshProUGUI scoreText;
-   public GameObject victoryTextObject;
+     #region Variables
+     public static int score;
+     public TextMeshProUGUI scoreText;
+     public GameObject victoryTextObject;
+     private bool GameHasEnded = false;
+     public float restartDelay = 2f;
+     #endregion
 
     void Start()
    {
@@ -33,5 +38,19 @@ public class GameManager : MonoBehaviour
    public void WinGame()
    {
         victoryTextObject.SetActive(true);
+   }
+
+   public void EndGame()
+   {
+     if (!GameHasEnded) 
+     {
+          GameHasEnded = true;
+          Invoke("RestartLevel", restartDelay);
+     }
+   }
+
+   private void RestartLevel()
+   {
+     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
    }
 }

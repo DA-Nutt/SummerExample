@@ -51,11 +51,16 @@ public class PlayerControls : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.gameObject.CompareTag("Pickup"))
+        switch (other.gameObject.tag) 
         {
-            other.gameObject.SetActive(false); //Despawn the pickup we just collided with
-            FindObjectOfType<GameManager>().UpdateScore(1);
-            
+            case "Pickup":
+                other.gameObject.SetActive(false); //Despawn the pickup we just collided with
+                FindObjectOfType<GameManager>().UpdateScore(1);
+                break;
+            case "Enemy":
+                FindObjectOfType<GameManager>().EndGame();
+                gameObject.SetActive(false);
+                break;
         }
     }
 }
