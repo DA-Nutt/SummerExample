@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
      public static int score;
      public TextMeshProUGUI scoreText;
      public GameObject victoryTextObject;
+     public GameObject gameOverTextObject; 
      private bool GameHasEnded = false;
      public float restartDelay = 2f;
      #endregion
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         UpdateUI();
         victoryTextObject.SetActive(false);
+        gameOverTextObject.SetActive(false);
    }
 
    public void UpdateScore(int amount)
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
    {
      if (!GameHasEnded) 
      {
+          gameOverTextObject.SetActive(true);
           GameHasEnded = true;
           Invoke("RestartLevel", restartDelay);
      }
